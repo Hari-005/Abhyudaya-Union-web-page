@@ -37,6 +37,7 @@ if (reportSlider) {
   const dots = Array.from(reportSlider.querySelectorAll("[data-report-dot]"));
   let activeIndex = 0;
   let scrollTimer;
+  let programmaticScroll = false;
   let touchStartX = 0;
   let touchStartY = 0;
   let touchStartIndex = 0;
@@ -61,8 +62,13 @@ if (reportSlider) {
     }
 
     activeIndex = normalizeIndex(index);
-    track.scrollLeft = slides[activeIndex].offsetLeft;
+    programmaticScroll = true;
+    track.scrollLeft = activeIndex * track.clientWidth;
     updateIndicators();
+
+    window.setTimeout(() => {
+      programmaticScroll = false;
+    }, 120);
   };
 
   if (total) {
@@ -148,6 +154,10 @@ if (reportSlider) {
   );
 
   track?.addEventListener("scroll", () => {
+    if (programmaticScroll) {
+      return;
+    }
+
     window.clearTimeout(scrollTimer);
     scrollTimer = window.setTimeout(() => {
       const nextIndex = Math.round(track.scrollLeft / track.clientWidth);
