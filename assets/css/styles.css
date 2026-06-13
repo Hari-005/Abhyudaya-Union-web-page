@@ -773,15 +773,27 @@ h3 {
 
 .avatar {
   display: grid;
-  width: 76px;
-  height: 76px;
+  width: 92px;
+  height: 92px;
   place-items: center;
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 50%;
   background: var(--cream-strong);
   font-family: "Syne", sans-serif;
   font-size: 1.45rem;
   font-weight: 800;
+}
+
+.avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  object-fit: cover;
 }
 
 .role {
