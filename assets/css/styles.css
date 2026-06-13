@@ -384,13 +384,13 @@ h3 {
 }
 
 .float-card-one {
-  top: 7%;
+  top: 3%;
   right: 5%;
 }
 
 .float-card-two {
   right: 0;
-  bottom: 24%;
+  bottom: 16%;
   animation-delay: -1.4s;
   box-shadow: 8px 8px 0 rgba(7, 139, 97, 0.85);
 }
@@ -411,7 +411,7 @@ h3 {
 }
 
 .float-card-green {
-  top: 30%;
+  top: 14%;
   left: 0;
   box-shadow: 8px 8px 0 rgba(7, 139, 97, 0.85);
   animation-delay: -0.8s;
