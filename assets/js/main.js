@@ -214,9 +214,177 @@ if (sanityEventsList) {
     });
 }
 
-const reportSlider = document.querySelector("[data-report-slider]");
+const getHostelTagClass = (type = "") => {
+  const normalizedType = type.toLowerCase();
 
-if (reportSlider) {
+  if (normalizedType.includes("girl")) {
+    return "tag-indigo";
+  }
+
+  if (normalizedType.includes("pg") || normalizedType.includes("rental")) {
+    return "tag-emerald";
+  }
+
+  return "tag-saffron";
+};
+
+const appendDetailItem = (list, label, value) => {
+  if (!value) {
+    return;
+  }
+
+  const wrapper = document.createElement("div");
+  const term = document.createElement("dt");
+  const detail = document.createElement("dd");
+
+  term.textContent = label;
+  detail.textContent = value;
+  wrapper.append(term, detail);
+  list.append(wrapper);
+};
+
+const createHostelCard = (hostel) => {
+  const card = document.createElement("article");
+  const image = document.createElement("img");
+  const content = document.createElement("div");
+  const tag = document.createElement("span");
+  const title = document.createElement("h2");
+  const description = document.createElement("p");
+  const details = document.createElement("dl");
+  const amenities = document.createElement("div");
+  const type = hostel.type || "Hostel";
+
+  card.className = "hostel-card";
+  content.className = "hostel-content";
+  tag.className = `tag ${getHostelTagClass(type)}`;
+  details.className = "detail-list";
+  amenities.className = "amenities";
+
+  image.src = hostel.imageUrl || "assets/images/hostel-green-view-pg.png";
+  image.alt = hostel.name ? `${hostel.name} hostel photo` : "Nearby hostel photo";
+  tag.textContent = type;
+  title.textContent = hostel.name || "Nearby Hostel";
+  description.textContent = hostel.description || "Details will be updated soon.";
+
+  appendDetailItem(details, "Distance", hostel.distance);
+  appendDetailItem(details, "Address", hostel.address);
+  appendDetailItem(details, "Contact", hostel.phone);
+
+  const features = Array.isArray(hostel.features) ? hostel.features.filter(Boolean) : [];
+  features.forEach((feature) => {
+    const item = document.createElement("span");
+    item.textContent = feature;
+    amenities.append(item);
+  });
+
+  content.append(tag, title, description, details);
+
+  if (features.length) {
+    content.append(amenities);
+  }
+
+  card.append(image, content);
+
+  return card;
+};
+
+const sanityHostelsGrid = document.querySelector("[data-sanity-hostels]");
+
+if (sanityHostelsGrid) {
+  const hostelQuery = '*[_type == "hostel"] | order(coalesce(order, 999) asc, name asc){name, type, distance, phone, address, description, features, order, "imageUrl": image.asset->url}';
+
+  sanityHostelsGrid.setAttribute("aria-busy", "true");
+
+  fetch(sanityQueryUrl(hostelQuery))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Could not load Sanity hostels");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const hostels = Array.isArray(data.result) ? data.result : [];
+
+      if (!hostels.length) {
+        return;
+      }
+
+      sanityHostelsGrid.replaceChildren(...hostels.map(createHostelCard));
+    })
+    .catch(() => {
+      sanityHostelsGrid.removeAttribute("aria-busy");
+    })
+    .finally(() => {
+      sanityHostelsGrid.removeAttribute("aria-busy");
+    });
+}
+
+const createReportSlide = (photo, index) => {
+  const slide = document.createElement("figure");
+  const image = document.createElement("img");
+  const caption = document.createElement("figcaption");
+
+  slide.className = "report-slide";
+  image.src = photo.imageUrl || "assets/images/1.jpeg";
+  image.alt = photo.title || `Abhyudaya union report photo ${index + 1}`;
+  caption.textContent = photo.caption || photo.title || `Report Photo ${String(index + 1).padStart(2, "0")}`;
+
+  slide.append(image, caption);
+
+  return slide;
+};
+
+const createReportDot = (index) => {
+  const dot = document.createElement("button");
+
+  dot.type = "button";
+  dot.dataset.reportDot = String(index);
+  dot.setAttribute("aria-label", `Show report photo ${index + 1}`);
+
+  if (index === 0) {
+    dot.className = "active";
+  }
+
+  return dot;
+};
+
+const loadSanityReportPhotos = (reportSlider) => {
+  const track = reportSlider.querySelector("[data-report-track]");
+  const dots = reportSlider.querySelector("[data-report-dots]");
+  const reportQuery = '*[_type == "reportPhoto"] | order(coalesce(order, 999) asc, eventDate desc){title, caption, eventDate, category, order, "imageUrl": image.asset->url}';
+
+  if (!track || !dots) {
+    return Promise.resolve();
+  }
+
+  reportSlider.setAttribute("aria-busy", "true");
+
+  return fetch(sanityQueryUrl(reportQuery))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Could not load Sanity report photos");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const photos = Array.isArray(data.result) ? data.result : [];
+
+      if (!photos.length) {
+        return;
+      }
+
+      track.replaceChildren(...photos.map(createReportSlide));
+      dots.replaceChildren(...photos.map((_, index) => createReportDot(index)));
+    })
+    .catch(() => {})
+    .finally(() => {
+      reportSlider.removeAttribute("aria-busy");
+    });
+};
+
+const initializeReportSlider = (reportSlider) => {
   const track = reportSlider.querySelector("[data-report-track]");
   const slides = Array.from(reportSlider.querySelectorAll(".report-slide"));
   const previousButton = reportSlider.querySelector("[data-report-prev]");
@@ -233,6 +401,10 @@ if (reportSlider) {
   const swipeThreshold = 44;
   const wheelThreshold = 18;
 
+  if (!track || !slides.length) {
+    return;
+  }
+
   const normalizeIndex = (index) => (index + slides.length) % slides.length;
 
   const updateIndicators = () => {
@@ -246,10 +418,6 @@ if (reportSlider) {
   };
 
   const updateSlider = (index) => {
-    if (!track || !slides.length) {
-      return;
-    }
-
     activeIndex = normalizeIndex(index);
     programmaticScroll = true;
     track.scrollLeft = activeIndex * track.clientWidth;
@@ -273,7 +441,7 @@ if (reportSlider) {
     });
   });
 
-  track?.addEventListener("keydown", (event) => {
+  track.addEventListener("keydown", (event) => {
     if (event.key === "ArrowRight") {
       event.preventDefault();
       updateSlider(activeIndex + 1);
@@ -295,7 +463,7 @@ if (reportSlider) {
     }
   });
 
-  track?.addEventListener(
+  track.addEventListener(
     "wheel",
     (event) => {
       if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || Math.abs(event.deltaX) < wheelThreshold) {
@@ -315,7 +483,7 @@ if (reportSlider) {
     { passive: false }
   );
 
-  track?.addEventListener(
+  track.addEventListener(
     "touchstart",
     (event) => {
       const touch = event.changedTouches[0];
@@ -326,7 +494,7 @@ if (reportSlider) {
     { passive: true }
   );
 
-  track?.addEventListener(
+  track.addEventListener(
     "touchend",
     (event) => {
       const touch = event.changedTouches[0];
@@ -342,7 +510,7 @@ if (reportSlider) {
     { passive: true }
   );
 
-  track?.addEventListener("scroll", () => {
+  track.addEventListener("scroll", () => {
     if (programmaticScroll) {
       return;
     }
@@ -358,4 +526,13 @@ if (reportSlider) {
   });
 
   updateIndicators();
+};
+
+const reportSlider = document.querySelector("[data-report-slider]");
+
+if (reportSlider) {
+  const shouldLoadSanityReport = reportSlider.hasAttribute("data-sanity-report-slider");
+  const reportLoad = shouldLoadSanityReport ? loadSanityReportPhotos(reportSlider) : Promise.resolve();
+
+  reportLoad.finally(() => initializeReportSlider(reportSlider));
 }
