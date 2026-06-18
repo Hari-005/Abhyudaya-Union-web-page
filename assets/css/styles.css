@@ -1239,8 +1239,8 @@ dd {
   }
 
   .rise-head h2 {
-    font-size: clamp(2.65rem, 10.5vw, 3.2rem);
-    line-height: 0.86;
+    font-size: clamp(2rem, 7.6vw, 2.5rem);
+    line-height: 0.9;
     gap: 0.12em;
   }
 
@@ -1372,8 +1372,8 @@ dd {
   }
 
   .rise-head h2 {
-    font-size: clamp(2.2rem, 12vw, 2.65rem);
-    line-height: 0.9;
+    font-size: clamp(1.8rem, 8vw, 2rem);
+    line-height: 0.95;
     gap: 0.1em;
   }
 
