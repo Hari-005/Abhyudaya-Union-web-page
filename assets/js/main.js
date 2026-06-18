@@ -182,6 +182,55 @@ const createEventRow = (eventItem) => {
 
   return row;
 };
+const createHomeEventNotice = (eventItem) => {
+  const link = document.createElement("a");
+  const category = eventItem.category || "General";
+  const tag = document.createElement("span");
+  const title = document.createElement("strong");
+  const summary = document.createElement("small");
+
+  link.href = "events.html";
+  tag.className = `tag ${getEventTagClass(category)}`;
+  tag.textContent = category;
+  title.textContent = eventItem.title || "Union Event";
+  summary.textContent = eventItem.summary || eventItem.description || formatEventDate(eventItem.date);
+
+  link.append(tag, title, summary);
+
+  return link;
+};
+
+const sanityHomeEventsList = document.querySelector("[data-sanity-home-events]");
+
+if (sanityHomeEventsList) {
+  const homeEventQuery = '*[_type == "event"] | order(coalesce(order, 999) asc, date asc)[0...3]{title, category, date, summary, description, venue, desk, order}';
+
+  sanityHomeEventsList.setAttribute("aria-busy", "true");
+
+  fetch(sanityQueryUrl(homeEventQuery))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Could not load Sanity homepage events");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const events = Array.isArray(data.result) ? data.result : [];
+
+      if (!events.length) {
+        return;
+      }
+
+      sanityHomeEventsList.replaceChildren(...events.map(createHomeEventNotice));
+    })
+    .catch(() => {
+      sanityHomeEventsList.removeAttribute("aria-busy");
+    })
+    .finally(() => {
+      sanityHomeEventsList.removeAttribute("aria-busy");
+    });
+}
 const sanityEventsList = document.querySelector("[data-sanity-events]");
 
 if (sanityEventsList) {
