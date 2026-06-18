@@ -180,6 +180,7 @@ textarea {
   font-weight: 700;
   color: var(--ink-soft);
   font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .nav-menu a:hover,
@@ -1167,6 +1168,41 @@ dd {
   }
 }
 
+@media (max-width: 1080px) {
+  .nav {
+    min-height: 68px;
+    gap: 0.75rem;
+  }
+
+  .brand {
+    gap: 0.65rem;
+  }
+
+  .brand-mark {
+    width: 72px;
+    height: 48px;
+    border-radius: 6px;
+  }
+
+  .brand strong {
+    font-size: 0.86rem;
+    line-height: 1.05;
+  }
+
+  .brand small {
+    font-size: 0.66rem;
+  }
+
+  .nav-menu {
+    gap: 0.05rem;
+  }
+
+  .nav-menu a {
+    min-height: 38px;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.82rem;
+  }
+}
 @media (max-width: 1020px) {
   h1 {
     font-size: 4.5rem;
