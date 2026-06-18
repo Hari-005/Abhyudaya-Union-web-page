@@ -15,13 +15,48 @@ document.querySelectorAll("[data-year]").forEach((node) => {
 const contactForm = document.querySelector("[data-contact-form]");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", (event) => {
+  contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const status = contactForm.querySelector("[data-form-status]");
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const formData = new FormData(contactForm);
+
     if (status) {
-      status.textContent = "Request noted. The union desk will follow up soon.";
+      status.textContent = "Sending request...";
     }
-    contactForm.reset();
+
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Formspree request failed");
+      }
+
+      if (status) {
+        status.textContent = "Request sent. The union desk will follow up soon.";
+      }
+
+      contactForm.reset();
+    } catch (error) {
+      if (status) {
+        status.textContent = "Could not send the request. Please try again or contact the union desk directly.";
+      }
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
+    }
   });
 }
 
