@@ -1239,8 +1239,9 @@ dd {
   }
 
   .rise-head h2 {
-    font-size: 3.65rem;
-    line-height: 0.8;
+    font-size: clamp(2.65rem, 10.5vw, 3.2rem);
+    line-height: 0.86;
+    gap: 0.12em;
   }
 
   .about-copy h2 {
@@ -1371,7 +1372,9 @@ dd {
   }
 
   .rise-head h2 {
-    font-size: 2.45rem;
+    font-size: clamp(2.2rem, 12vw, 2.65rem);
+    line-height: 0.9;
+    gap: 0.1em;
   }
 
   .stats-strip dt {
