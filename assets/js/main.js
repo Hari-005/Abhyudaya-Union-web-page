@@ -60,6 +60,160 @@ if (contactForm) {
   });
 }
 
+
+const sanityProjectId = "k3nhbunt";
+const sanityDataset = "production";
+const sanityApiVersion = "2025-02-19";
+
+const sanityQueryUrl = (query) =>
+  `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/${sanityDataset}?query=${encodeURIComponent(query)}`;
+
+const getDateParts = (dateString) => {
+  const [year, month, day] = String(dateString || "").split("-").map(Number);
+
+  if (!year || !month || !day) {
+    return null;
+  }
+
+  return { year, month, day };
+};
+
+const formatEventDate = (dateString) => {
+  const parts = getDateParts(dateString);
+
+  if (!parts) {
+    return "Date to be announced";
+  }
+
+  const month = new Intl.DateTimeFormat("en", { month: "long" }).format(
+    new Date(parts.year, parts.month - 1, parts.day)
+  );
+  const day = String(parts.day).padStart(2, "0");
+
+  return `${day} ${month} ${parts.year}`;
+};
+
+const getDateCardParts = (dateString) => {
+  const parts = getDateParts(dateString);
+
+  if (!parts) {
+    return { month: "TBA", day: "--" };
+  }
+
+  return {
+    month: new Intl.DateTimeFormat("en", { month: "short" }).format(
+      new Date(parts.year, parts.month - 1, parts.day)
+    ),
+    day: String(parts.day).padStart(2, "0"),
+  };
+};
+
+const getEventTagClass = (category = "") => {
+  const normalizedCategory = category.toLowerCase();
+
+  if (normalizedCategory.includes("sport")) {
+    return "tag-indigo";
+  }
+
+  if (normalizedCategory.includes("academic") || normalizedCategory.includes("welfare")) {
+    return "tag-emerald";
+  }
+
+  return "tag-saffron";
+};
+
+const createEventRow = (eventItem) => {
+  const row = document.createElement("div");
+  const dateParts = getDateCardParts(eventItem.date);
+  const displayDate = formatEventDate(eventItem.date);
+  const category = eventItem.category || "General";
+
+  row.className = "event-row";
+
+  const dateCard = document.createElement("div");
+  dateCard.className = "date-card";
+  dateCard.setAttribute("aria-label", displayDate);
+
+  const month = document.createElement("span");
+  month.textContent = dateParts.month;
+
+  const day = document.createElement("strong");
+  day.textContent = dateParts.day;
+
+  const summary = document.createElement("small");
+  summary.textContent = eventItem.summary || eventItem.title || "Union event";
+
+  dateCard.append(month, day, summary);
+
+  const eventCard = document.createElement("article");
+  eventCard.className = "event-card";
+
+  const eventCopy = document.createElement("div");
+  const tag = document.createElement("span");
+  tag.className = `tag ${getEventTagClass(category)}`;
+  tag.textContent = category;
+
+  const title = document.createElement("h2");
+  title.textContent = eventItem.title || "Union Event";
+
+  const description = document.createElement("p");
+  description.textContent = eventItem.description || "Details will be updated soon.";
+
+  eventCopy.append(tag, title, description);
+
+  const details = document.createElement("dl");
+  const appendDetail = (label, value) => {
+    const wrapper = document.createElement("div");
+    const term = document.createElement("dt");
+    const detail = document.createElement("dd");
+
+    term.textContent = label;
+    detail.textContent = value;
+    wrapper.append(term, detail);
+    details.append(wrapper);
+  };
+
+  appendDetail("Date", displayDate);
+  appendDetail("Venue", eventItem.venue || "Venue to be announced");
+  appendDetail("Desk", eventItem.desk || "Union Desk");
+
+  eventCard.append(eventCopy, details);
+  row.append(dateCard, eventCard);
+
+  return row;
+};
+const sanityEventsList = document.querySelector("[data-sanity-events]");
+
+if (sanityEventsList) {
+  const eventQuery = '*[_type == "event"] | order(coalesce(order, 999) asc, date asc){title, category, date, summary, description, venue, desk, order}';
+
+  sanityEventsList.setAttribute("aria-busy", "true");
+
+  fetch(sanityQueryUrl(eventQuery))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Could not load Sanity events");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const events = Array.isArray(data.result) ? data.result : [];
+
+      if (!events.length) {
+        return;
+      }
+
+      sanityEventsList.replaceChildren(...events.map(createEventRow));
+    })
+    .catch(() => {
+      sanityEventsList.removeAttribute("aria-busy");
+    })
+    .finally(() => {
+      sanityEventsList.removeAttribute("aria-busy");
+    });
+}
+
 const reportSlider = document.querySelector("[data-report-slider]");
 
 if (reportSlider) {
