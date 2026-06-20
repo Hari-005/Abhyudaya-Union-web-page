@@ -200,6 +200,7 @@ const createEventRow = (eventItem) => {
   appendDetail("Date", displayDate);
   appendDetail("Venue", eventItem.venue || "Venue to be announced");
   appendDetail("Desk", eventItem.desk || "Union Desk");
+  appendDetail("Contact", eventItem.contactNumber || "Contact desk");
 
   eventCard.append(eventCopy, details);
   row.append(dateCard, eventCard);
@@ -227,7 +228,7 @@ const createHomeEventNotice = (eventItem) => {
 const sanityHomeEventsList = document.querySelector("[data-sanity-home-events]");
 
 if (sanityHomeEventsList) {
-  const homeEventQuery = '*[_type == "event"] | order(coalesce(order, 999) asc, date asc)[0...3]{title, category, date, summary, description, venue, desk, order}';
+  const homeEventQuery = '*[_type == "event"] | order(coalesce(order, 999) asc, date asc)[0...3]{title, category, date, summary, description, venue, desk, contactNumber, order}';
 
   sanityHomeEventsList.setAttribute("aria-busy", "true");
 
@@ -258,7 +259,7 @@ if (sanityHomeEventsList) {
 const sanityEventsList = document.querySelector("[data-sanity-events]");
 
 if (sanityEventsList) {
-  const eventQuery = '*[_type == "event"] | order(coalesce(order, 999) asc, date asc){title, category, date, summary, description, venue, desk, order}';
+  const eventQuery = '*[_type == "event"] | order(coalesce(order, 999) asc, date asc){title, category, date, summary, description, venue, desk, contactNumber, order}';
 
   sanityEventsList.setAttribute("aria-busy", "true");
 

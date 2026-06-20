@@ -59,6 +59,12 @@ export const event = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'contactNumber',
+      title: 'Contact Number',
+      type: 'string',
+      description: 'Phone number shown on the event card for student enquiries.',
+    }),
+    defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',

@@ -532,6 +532,7 @@ h3 {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--white);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
 
 .info-card {
@@ -770,6 +771,7 @@ h3 {
   display: grid;
   gap: 0.85rem;
   min-height: 420px;
+transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease, background-color 190ms ease;
 }
 
 .avatar {
@@ -795,6 +797,7 @@ h3 {
   max-width: none;
   display: block;
   object-fit: cover;
+  transition: transform 260ms ease;
 }
 
 .role {
@@ -830,6 +833,19 @@ h3 {
   background: var(--saffron);
 }
 
+
+.member-card:hover,
+.member-card:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--saffron);
+  background: #fffdf8;
+  box-shadow: 10px 10px 0 rgba(22, 18, 12, 0.08);
+}
+
+.member-card:hover .avatar img,
+.member-card:focus-within .avatar img {
+  transform: scale(1.06);
+}
 .member-card a {
   align-self: end;
   color: var(--indigo-dark);
@@ -853,6 +869,7 @@ h3 {
   grid-template-columns: 280px minmax(0, 1fr);
   gap: 1.25rem;
   align-items: stretch;
+  transition: transform 180ms ease;
 }
 
 .date-card {
@@ -864,6 +881,7 @@ h3 {
   background: var(--ink);
   color: var(--paper);
   padding: 1rem;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .date-card span,
@@ -893,6 +911,7 @@ h3 {
   grid-template-columns: minmax(0, 1fr) 260px;
   gap: 1.5rem;
   padding: 1.25rem;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
 }
 
 .event-card h2 {
@@ -931,6 +950,7 @@ dd {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--white);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
 
 .hostel-card img {
@@ -938,6 +958,36 @@ dd {
   height: 100%;
   min-height: 390px;
   object-fit: cover;
+  transition: transform 260ms ease;
+}
+.event-row:hover,
+.event-row:focus-within {
+  transform: translateY(-4px);
+}
+
+.event-row:hover .date-card,
+.event-row:focus-within .date-card {
+  border-color: var(--saffron);
+  box-shadow: 8px 8px 0 rgba(255, 122, 24, 0.25);
+}
+
+.event-row:hover .event-card,
+.event-row:focus-within .event-card {
+  border-color: var(--saffron);
+  background: #fffdf8;
+  box-shadow: 10px 10px 0 rgba(22, 18, 12, 0.08);
+}
+
+.hostel-card:hover,
+.hostel-card:focus-within {
+  transform: translateY(-6px) scale(1.01);
+  border-color: var(--saffron);
+  box-shadow: 12px 12px 0 rgba(22, 18, 12, 0.1);
+}
+
+.hostel-card:hover img,
+.hostel-card:focus-within img {
+  transform: scale(1.045);
 }
 
 .hostel-content {
