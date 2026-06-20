@@ -68,6 +68,30 @@ const sanityApiVersion = "2025-02-19";
 const sanityQueryUrl = (query) =>
   `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/${sanityDataset}?query=${encodeURIComponent(query)}`;
 
+const formatStatCount = (count) => String(count).padStart(2, "0");
+
+const reportPhotoCount = document.querySelector("[data-report-photo-count]");
+
+if (reportPhotoCount) {
+  const reportCountQuery = 'count(*[_type == "reportPhoto"])';
+
+  fetch(sanityQueryUrl(reportCountQuery))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Could not load report photo count");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const count = Number(data.result || 0);
+
+      if (count > 0) {
+        reportPhotoCount.textContent = formatStatCount(count);
+      }
+    })
+    .catch(() => {});
+}
 const getDateParts = (dateString) => {
   const [year, month, day] = String(dateString || "").split("-").map(Number);
 
