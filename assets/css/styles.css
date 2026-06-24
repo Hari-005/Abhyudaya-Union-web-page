@@ -1133,7 +1133,7 @@ dd {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--white);
   padding: 0.78rem 0.85rem;
   color: var(--ink);
 }
@@ -1146,6 +1146,9 @@ dd {
   min-height: 1.5rem;
   color: var(--emerald-dark);
   font-weight: 800;
+}
+.contact-form .button-primary {
+  background: #ff8f1f;
 }
 
 .report-section {
