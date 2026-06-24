@@ -18,7 +18,7 @@
   --line: #241b13;
   --line-soft: rgba(22, 18, 12, 0.16);
   --shadow: 0 26px 70px rgba(13, 10, 7, 0.24);
-  --radius: 8px;
+  --radius: 16px;
   --section-pad: clamp(4.5rem, 8vw, 8rem);
   --shell: min(1180px, calc(100% - 2rem));
 }
@@ -770,7 +770,7 @@ h3 {
   padding: 1.2rem;
   display: grid;
   gap: 0.85rem;
-  min-height: 420px;
+  min-height: 360px;
 transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease, background-color 190ms ease;
 }
 
@@ -853,6 +853,53 @@ transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease
   overflow-wrap: anywhere;
 }
 
+
+.members-directory {
+  display: grid;
+  gap: clamp(2.8rem, 6vw, 5rem);
+}
+
+.member-section {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.member-section-head {
+  max-width: 760px;
+}
+
+.member-section-head h2 {
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 0.95;
+}
+
+.member-meta {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.member-meta li {
+  display: grid;
+  gap: 0.1rem;
+  padding-left: 0;
+}
+
+.member-meta li::before {
+  display: none;
+}
+
+.member-meta span {
+  color: var(--saffron-deep);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.member-meta a {
+  align-self: auto;
+  color: var(--indigo-dark);
+}
 .event-layout {
   display: grid;
   gap: 1.25rem;
