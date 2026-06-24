@@ -846,6 +846,7 @@ h3 {
 }
 
 .footer-brand small,
+.footer-address,
 .footer-brand-block p,
 .footer-links a,
 .footer-bottom p {
@@ -935,6 +936,13 @@ h3 {
   color: var(--paper);
   font-family: "Syne", sans-serif;
   font-weight: 800;
+}
+
+
+.footer-social a svg {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
 }
 
 .footer-social a:hover,
