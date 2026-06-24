@@ -18,7 +18,7 @@
   --line: #241b13;
   --line-soft: rgba(22, 18, 12, 0.16);
   --shadow: 0 26px 70px rgba(13, 10, 7, 0.24);
-  --radius: 16px;
+  --radius: 22px;
   --section-pad: clamp(4.5rem, 8vw, 8rem);
   --shell: min(1180px, calc(100% - 2rem));
 }
@@ -871,6 +871,30 @@ transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease
 .member-section-head h2 {
   font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 0.95;
+}
+
+
+
+.member-duties {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.member-duties li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.member-duties li::before {
+  position: absolute;
+  left: 0;
+  content: "";
+  width: 6px;
+  height: 6px;
+  top: 0.58em;
+  border-radius: 50%;
+  background: var(--saffron);
 }
 
 .member-meta {
