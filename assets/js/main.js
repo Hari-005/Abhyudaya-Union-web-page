@@ -317,6 +317,49 @@ const appendDetailItem = (list, label, value) => {
   list.append(wrapper);
 };
 
+const formatHostelFeature = (feature) => {
+  const value = String(feature).trim();
+
+  if (/^wi[\s-]?fi$/i.test(value)) {
+    return "Wi-Fi";
+  }
+
+  return value;
+};
+
+const formatHostelType = (type) => {
+  const value = String(type).trim();
+  const normalizedType = value.toLowerCase();
+
+  if (normalizedType.includes("girl")) {
+    return "Girls hostel";
+  }
+
+  if (normalizedType.includes("boy")) {
+    return "Boys hostel";
+  }
+
+  if (normalizedType.includes("pg")) {
+    return "PG accommodation";
+  }
+
+  if (normalizedType.includes("rental")) {
+    return "Rental stay";
+  }
+
+  return value;
+};
+
+const formatHostelRent = (rent) => {
+  const value = String(rent || "").trim();
+
+  if (!value || /^(rs\.?|₹)/i.test(value)) {
+    return value;
+  }
+
+  return `Rs. ${value}`;
+};
+
 const createHostelCard = (hostel) => {
   const card = document.createElement("article");
   const image = document.createElement("img");
@@ -336,18 +379,19 @@ const createHostelCard = (hostel) => {
 
   image.src = hostel.imageUrl || "assets/images/hostel-green-view-pg.png";
   image.alt = hostel.name ? `${hostel.name} hostel photo` : "Nearby hostel photo";
-  tag.textContent = type;
+  tag.textContent = formatHostelType(type);
   title.textContent = hostel.name || "Nearby Hostel";
   description.textContent = hostel.description || "Details will be updated soon.";
 
   appendDetailItem(details, "Distance", hostel.distance);
-  appendDetailItem(details, "Address", hostel.address);
+  appendDetailItem(details, "Rent range", formatHostelRent(hostel.rent));
+  appendDetailItem(details, "Rooms", hostel.rooms);
   appendDetailItem(details, "Contact", hostel.phone);
 
   const features = Array.isArray(hostel.features) ? hostel.features.filter(Boolean) : [];
   features.forEach((feature) => {
     const item = document.createElement("span");
-    item.textContent = feature;
+    item.textContent = formatHostelFeature(feature);
     amenities.append(item);
   });
 
@@ -365,7 +409,7 @@ const createHostelCard = (hostel) => {
 const sanityHostelsGrid = document.querySelector("[data-sanity-hostels]");
 
 if (sanityHostelsGrid) {
-  const hostelQuery = '*[_type == "hostel"] | order(coalesce(order, 999) asc, name asc){name, type, distance, phone, address, description, features, order, "imageUrl": image.asset->url}';
+  const hostelQuery = '*[_type == "hostel"] | order(coalesce(order, 999) asc, name asc){name, type, distance, rooms, rent, phone, description, features, order, "imageUrl": image.asset->url}';
 
   sanityHostelsGrid.setAttribute("aria-busy", "true");
 

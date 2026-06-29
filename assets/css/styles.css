@@ -1240,6 +1240,7 @@ dd {
 .hostel-card {
   display: grid;
   grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
+  min-height: 615px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1816,6 +1817,7 @@ dd {
 
   .hostel-card {
     grid-template-columns: 1fr;
+    min-height: 0;
   }
 
   .hostel-card img {
