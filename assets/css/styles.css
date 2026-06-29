@@ -124,7 +124,7 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 0.9rem;
-  min-width: max-content;
+  flex-shrink: 0;
 }
 
 .brand-mark {
@@ -489,7 +489,7 @@ h3 {
   max-width: 1120px;
   display: grid;
   gap: 0.16em;
-  font-size: 5rem;
+  font-size: 5rem; 
   font-weight: 800;
   line-height: 0.74;
   letter-spacing: 0;
@@ -1240,7 +1240,7 @@ dd {
 .hostel-card {
   display: grid;
   grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
-  min-height: 615px;
+  height: 520px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1251,7 +1251,7 @@ dd {
 .hostel-card img {
   width: 100%;
   height: 100%;
-  min-height: 390px;
+  min-height: 0;
   object-fit: cover;
   transition: transform 260ms ease;
 }
@@ -1285,23 +1285,69 @@ dd {
   transform: scale(1.045);
 }
 
-  .hostel-content {
+.hostel-content {
   display: grid;
-  gap: 1rem;
+  grid-template-rows: auto auto auto 1fr auto;
+  align-content: start;
+  gap: 0.85rem;
+  min-width: 0;
+  overflow: hidden;
   padding: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-  .hostel-content h2 {
-  font-size: 3.6rem;
+.hostel-content h2 {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 2.35rem;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.hostel-content > p {
+  display: -webkit-box;
+  min-height: 4.5em;
+  overflow: hidden;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.hostel-content .detail-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 0.75rem 1rem;
+  margin: 0;
+}
+
+.hostel-content .detail-list div {
+  min-width: 0;
+}
+
+.hostel-content .detail-list dd {
+  overflow-wrap: anywhere;
 }
 
 .amenities {
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
   gap: 0.55rem;
+  min-height: 2.25rem;
+  max-height: 5rem;
+  overflow: hidden;
 }
 
 .amenities span {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  align-items: center;
+  min-width: 0;
+  height: 2.15rem;
+  min-height: 0;
   border: 1px solid var(--line-soft);
   border-radius: 999px;
   padding: 0.32rem 0.75rem;
@@ -1309,6 +1355,9 @@ dd {
   color: var(--ink-soft);
   font-size: 0.9rem;
   font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .hostel-note {
@@ -1817,10 +1866,11 @@ dd {
 
   .hostel-card {
     grid-template-columns: 1fr;
-    min-height: 0;
+    height: auto;
   }
 
   .hostel-card img {
+    height: 320px;
     min-height: 260px;
     max-height: 360px;
   }
@@ -1839,6 +1889,14 @@ dd {
   .hostel-content h2,
   .contact-panel h2 {
     font-size: 2.35rem;
+  }
+
+  .hostel-content {
+    overflow: visible;
+  }
+
+  .hostel-content .detail-list {
+    grid-template-columns: 1fr;
   }
 }
 
