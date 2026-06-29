@@ -1303,6 +1303,7 @@ dd {
   overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .hostel-content > p {
@@ -1312,6 +1313,7 @@ dd {
   line-height: 1.5;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .hostel-content .detail-list {
