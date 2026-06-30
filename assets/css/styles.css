@@ -29,12 +29,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
 body {
   margin: 0;
   width: 100%;
+  overflow-x: hidden;
   overflow-x: clip;
   background: var(--cream);
   color: var(--ink);
@@ -214,6 +216,9 @@ textarea {
 }
 
 .section-dark {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   background: radial-gradient(circle at 20% 10%, rgba(244, 123, 32, 0.18), transparent 28%),
     linear-gradient(135deg, var(--charcoal), var(--charcoal-2));
   color: var(--paper);
