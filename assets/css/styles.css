@@ -29,10 +29,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  overflow-x: clip;
   background: var(--cream);
   color: var(--ink);
   font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -1769,6 +1772,37 @@ dd {
 
   .hero-lede {
     font-size: 1.05rem;
+  }
+
+  .page-hero,
+  .section-light,
+  .page-hero-grid,
+  .event-layout,
+  .event-list,
+  .event-row,
+  .date-card,
+  .event-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.65rem, 12vw, 3.2rem);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .event-row,
+  .event-row:hover,
+  .event-row:focus-within {
+    transform: none;
+  }
+
+  .event-row:hover .date-card,
+  .event-row:focus-within .date-card,
+  .event-row:hover .event-card,
+  .event-row:focus-within .event-card {
+    transform: none;
   }
 
   .site-header {
