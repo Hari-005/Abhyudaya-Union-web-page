@@ -490,22 +490,41 @@ h3 {
 }
 
 .rise-head {
+  width: min(100% - 2rem, 1360px);
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .rise-head h2 {
-  max-width: 1120px;
+  max-width: 1200px;
   display: grid;
-  gap: 0.16em;
-  font-size: 5rem; 
-  font-weight: 800;
-  line-height: 0.74;
+  gap: 0.04em;
+  overflow: visible;
+  font-family: "Syne", sans-serif;
+  font-size: 6.1rem;
+  font-weight: 900;
+  line-height: 0.91;
   letter-spacing: 0;
   text-transform: none;
 }
 
 .rise-head h2 span {
   display: block;
+  max-width: 100%;
+  width: max-content;
+  transform: scaleX(1.1);
+  transform-origin: left center;
+}
+
+.rise-head h2 span:nth-child(2) {
+  transform: scaleX(1.06);
+}
+
+.rise-head h2 span:nth-child(3) {
+  transform: scaleX(1.04);
+}
+
+.rise-head h2 span:nth-child(4) {
+  transform: scaleX(1.02);
 }
 
 .rise-head h2 span:nth-child(1) {
@@ -1699,7 +1718,13 @@ dd {
   }
 
   .rise-head h2 {
-    font-size: 5rem;
+    font-size: 4.7rem;
+    line-height: 0.94;
+  }
+
+  .rise-head h2 span {
+    width: max-content;
+    transform: scaleX(1.06);
   }
 
   .hero-grid,
@@ -1762,9 +1787,20 @@ dd {
   }
 
   .rise-head h2 {
-    font-size: clamp(2rem, 7.6vw, 2.5rem);
+    font-size: 2.75rem;
     line-height: 0.9;
-    gap: 0.12em;
+    gap: 0.04em;
+  }
+
+  .rise-head h2 span {
+    width: auto;
+    transform: none;
+  }
+
+  .rise-head h2 span:nth-child(2),
+  .rise-head h2 span:nth-child(3),
+  .rise-head h2 span:nth-child(4) {
+    transform: none;
   }
 
   .about-copy h2 {
@@ -1962,9 +1998,9 @@ dd {
   }
 
   .rise-head h2 {
-    font-size: clamp(1.8rem, 8vw, 2rem);
+    font-size: 2.05rem;
     line-height: 0.95;
-    gap: 0.1em;
+    gap: 0.04em;
   }
 
   .stats-strip dt {
