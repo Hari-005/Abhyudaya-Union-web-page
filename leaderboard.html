@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abhyudaya College Union | Contact</title>
+    <title>Abhyudaya College Union | MALHAR Leaderboard</title>
     <meta
       name="description"
-      content="Contact the Abhyudaya College Union desk for student support, events, hostel help, and union office enquiries."
+      content="Live MALHAR arts fest leaderboard for Government Engineering College Kozhikode departments."
     />
     <link rel="icon" href="assets/images/abhyudaya-logo.png" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=20260625-footer-mobile-center" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=20260919-malhar-leaderboard" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -36,77 +36,70 @@
           <li><a href="members.html">Union Members</a></li>
           <li><a href="departments.html">Departments</a></li>
           <li><a href="events.html">Events</a></li>
-          <li><a href="leaderboard.html">Malhar</a></li>
+          <li><a class="active" href="leaderboard.html">Malhar</a></li>
           <li><a href="report.html">Union Report</a></li>
-          <li><a class="active" href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </header>
 
     <main id="main">
-      <section class="page-hero section-dark">
-        <div class="shell page-hero-grid">
-          <div>
-            <p class="eyebrow">Union desk</p>
-            <h1>We'd love to hear from you.</h1>
-          </div>
+      <section class="malhar-hero">
+        <div class="shell malhar-hero-inner">
+          <p class="eyebrow">Arts fest | Sep 19, 20, 21</p>
+          <h1>MALHAR 26 leaderboard.</h1>
           <p>
-            Have a question, suggestion, or want to volunteer? Drop us a message and we'll get back to you.
+            Department points for the college arts fest, updated from the union desk.
           </p>
         </div>
       </section>
 
-      <section class="section-light">
-        <div class="shell contact-grid">
-          <div class="contact-panel">
-            <h2>Union Desk</h2>
-            <dl class="detail-list">
-              <div>
-                <dt>Union room</dt>
-                <dd>Near Store, Ground Floor, Main Block</dd>
-              </div>
-              <div>
-                <dt>Email</dt>
-                <dd><a href="mailto:collegeuniongeck26@gmail.com">collegeuniongeck26@gmail.com</a></dd>
-              </div>
-              <div>
-                <dt>Phone</dt>
-                <dd><a href="tel:+91 77362 70202">+91 77362 70202</a></dd>
-              </div>
-            </dl>
+      <section class="section-light malhar-section">
+        <div class="shell">
+          <div class="malhar-board" data-malhar-leaderboard aria-label="MALHAR department leaderboard">
+            <div class="malhar-board-head">
+              <span>Rank</span>
+              <span>Department</span>
+              <span>Points</span>
+            </div>
+            <ol class="malhar-list" data-malhar-list>
+              <li class="malhar-row">
+                <span class="malhar-rank">1.</span>
+                <strong>Chemical Engineering</strong>
+                <span class="malhar-points">10</span>
+              </li>
+              <li class="malhar-row">
+                <span class="malhar-rank">2.</span>
+                <strong>Mechanical Engineering</strong>
+                <span class="malhar-points">6</span>
+              </li>
+              <li class="malhar-row">
+                <span class="malhar-rank">3.</span>
+                <strong>Electronics &amp; Communication Engineering</strong>
+                <span class="malhar-points">5</span>
+              </li>
+              <li class="malhar-row">
+                <span class="malhar-rank">4.</span>
+                <strong>Civil Engineering</strong>
+                <span class="malhar-points">5</span>
+              </li>
+              <li class="malhar-row">
+                <span class="malhar-rank">5.</span>
+                <strong>Computer Science &amp; Design</strong>
+                <span class="malhar-points">3</span>
+              </li>
+              <li class="malhar-row">
+                <span class="malhar-rank">6.</span>
+                <strong>Applied Electronics &amp; Instrumentation</strong>
+                <span class="malhar-points">0</span>
+              </li>
+              <li class="malhar-row">
+                <span class="malhar-rank">7.</span>
+                <strong>Electrical &amp; Computer Engineering</strong>
+                <span class="malhar-points">0</span>
+              </li>
+            </ol>
           </div>
-
-          <form class="contact-form" data-contact-form action="https://formspree.io/f/mjgddqnk" method="POST">
-            <label>
-              Name
-              <input type="text" name="name" placeholder="Your name" required />
-            </label>
-            <label>
-              Department
-              <input type="text" name="department" placeholder="Department and year" required />
-            </label>
-            <label>
-              Email
-              <input type="email" name="email" placeholder="Your email" required />
-            </label>
-            <label>
-              Request type
-              <select name="request" required>
-                <option value="">Select one</option>
-                <option>Student welfare</option>
-                <option>Event permission</option>
-                <option>Hostel support</option>
-                <option>Club or activity</option>
-                <option>Other</option>
-              </select>
-            </label>
-            <label>
-              Message
-              <textarea name="message" rows="6" placeholder="Write the request clearly" required></textarea>
-            </label>
-            <button class="button button-primary" type="submit">Send request</button>
-            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-          </form>
         </div>
       </section>
     </main>

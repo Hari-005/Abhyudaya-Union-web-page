@@ -288,6 +288,58 @@ if (sanityEventsList) {
     });
 }
 
+const createMalharRow = (score, index) => {
+  const row = document.createElement("li");
+  const rank = document.createElement("span");
+  const department = document.createElement("strong");
+  const points = document.createElement("span");
+  const normalizedRank = Number(score.rank || index + 1);
+  const normalizedPoints = Number(score.points || 0);
+
+  row.className = "malhar-row";
+  rank.className = "malhar-rank";
+  points.className = "malhar-points";
+
+  rank.textContent = `${normalizedRank}.`;
+  department.textContent = score.department || "Department";
+  points.textContent = String(normalizedPoints);
+
+  row.append(rank, department, points);
+
+  return row;
+};
+
+const malharList = document.querySelector("[data-malhar-list]");
+const malharLeaderboard = document.querySelector("[data-malhar-leaderboard]");
+
+if (malharList && malharLeaderboard) {
+  const malharQuery = '*[_type == "malharScore"] | order(coalesce(order, rank, 999) asc, points desc){department, rank, points, order}';
+
+  malharLeaderboard.setAttribute("aria-busy", "true");
+
+  fetch(sanityQueryUrl(malharQuery))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Could not load MALHAR leaderboard");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const scores = Array.isArray(data.result) ? data.result : [];
+
+      if (!scores.length) {
+        return;
+      }
+
+      malharList.replaceChildren(...scores.map(createMalharRow));
+    })
+    .catch(() => {})
+    .finally(() => {
+      malharLeaderboard.removeAttribute("aria-busy");
+    });
+}
+
 const getHostelTagClass = (type = "") => {
   const normalizedType = type.toLowerCase();
 
