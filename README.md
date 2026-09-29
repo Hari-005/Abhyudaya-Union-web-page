@@ -8,6 +8,7 @@ A multi-page static website for Abhyudaya College Union, Government Engineering 
 - `members.html` - union office bearer details
 - `events.html` - events, notices, and schedule cards
 - `leaderboard.html` - MALHAR arts fest department leaderboard
+- `sports-day-leaderboard.html` - Sports Day department leaderboard
 - `report.html` - union report photo slider using images `1.jpeg` through `11.jpeg`
 - `hostels.html` - nearby hostel/PG details with photos
 - `contact.html` - union desk contact details and static request form

@@ -1670,6 +1670,85 @@ dd {
   padding-top: clamp(2.5rem, 5vw, 5rem);
 }
 
+.sports-day-banner {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  background: #9b0d0b;
+}
+
+.sports-day-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sports-day-board-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.sports-day-board-heading .eyebrow {
+  margin-bottom: 0.3rem;
+  color: #a41c18;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.sports-day-board-heading h1 {
+  font-family: "Syne", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1;
+}
+
+.sports-day-board-heading > p {
+  max-width: 28rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+  text-align: right;
+}
+
+.malhar-board.sports-day-board {
+  border-color: #77746b;
+  background:
+    radial-gradient(circle at 50% 0, rgba(197, 168, 82, 0.1), transparent 58%),
+    #111110;
+  box-shadow: 12px 12px 0 rgba(197, 168, 82, 0.12), 0 28px 70px rgba(22, 18, 12, 0.22);
+}
+
+.sports-day-board .malhar-board-head {
+  border-bottom: 1px solid #77746b;
+  background: #1b1b19;
+  color: #d2b456;
+}
+
+.sports-day-board .malhar-row {
+  border-top: 1px solid rgba(215, 215, 210, 0.34);
+  background: rgba(255, 255, 255, 0.015);
+  color: #f4f2ec;
+}
+
+.sports-day-board .malhar-row:nth-child(even) {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.sports-day-board .malhar-row strong {
+  color: #f4f2ec;
+}
+
+.sports-day-board .malhar-rank,
+.sports-day-board .malhar-points {
+  color: #d2b456;
+  text-shadow: 1px 1px 0 #302a1b;
+}
+
+.sports-day-board .malhar-points {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .malhar-board {
   overflow: hidden;
   border: 2px solid #7e111f;
@@ -1876,6 +1955,29 @@ dd {
     padding: 0.45rem 0.5rem;
     font-size: 0.82rem;
   }
+
+  .nav-toggle {
+    display: grid;
+  }
+
+  .nav-menu {
+    position: absolute;
+    inset: 68px 1rem auto 1rem;
+    display: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    padding: 0.6rem;
+    box-shadow: 8px 8px 0 rgba(22, 18, 12, 0.16);
+  }
+
+  .nav-menu.open {
+    display: grid;
+  }
+
+  .nav-menu a {
+    width: 100%;
+  }
 }
 @media (max-width: 1020px) {
   h1 {
@@ -2015,6 +2117,17 @@ dd {
     overflow-wrap: normal;
   }
 
+  .sports-day-board-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .sports-day-board-heading > p {
+    text-align: left;
+  }
+
   .malhar-board {
     border-radius: calc(var(--radius) - 4px);
   }
@@ -2031,6 +2144,11 @@ dd {
     gap: 0.5rem;
     min-height: 72px;
     padding: 0.85rem 0.75rem;
+  }
+
+  .sports-day-board .malhar-board-head,
+  .sports-day-board .malhar-row {
+    grid-template-columns: 46px minmax(0, 1fr) 84px;
   }
 
   .malhar-row strong {

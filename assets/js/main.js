@@ -288,7 +288,7 @@ if (sanityEventsList) {
     });
 }
 
-const createMalharRow = (score, index) => {
+const createLeaderboardRow = (score, index) => {
   const row = document.createElement("li");
   const rank = document.createElement("span");
   const department = document.createElement("strong");
@@ -332,11 +332,40 @@ if (malharList && malharLeaderboard) {
         return;
       }
 
-      malharList.replaceChildren(...scores.map(createMalharRow));
+      malharList.replaceChildren(...scores.map(createLeaderboardRow));
     })
     .catch(() => {})
     .finally(() => {
       malharLeaderboard.removeAttribute("aria-busy");
+    });
+}
+
+const sportsDayList = document.querySelector("[data-sports-day-list]");
+const sportsDayLeaderboard = document.querySelector("[data-sports-day-leaderboard]");
+
+if (sportsDayList && sportsDayLeaderboard) {
+  const sportsDayQuery = '*[_type == "sportsDayScore"] | order(rank asc, points desc, order asc){department, rank, points, order}';
+
+  sportsDayLeaderboard.setAttribute("aria-busy", "true");
+
+  fetch(sanityQueryUrl(sportsDayQuery))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Could not load Sports Day leaderboard");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const scores = Array.isArray(data.result) ? data.result : [];
+
+      if (scores.length) {
+        sportsDayList.replaceChildren(...scores.map(createLeaderboardRow));
+      }
+    })
+    .catch(() => {})
+    .finally(() => {
+      sportsDayLeaderboard.removeAttribute("aria-busy");
     });
 }
 
